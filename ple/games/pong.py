@@ -3,11 +3,11 @@ import sys
 
 import pygame
 from pygame.constants import K_w, K_s
-from ple.games.utils.vec2d import vec2d
-from ple.games.utils import percent_round_int
+from WaterWorld.game.implementations.ple.ple.games.utils.vec2d import vec2d
+from WaterWorld.game.implementations.ple.ple.games.utils import percent_round_int
 
 #import base
-from ple.games.base.pygamewrapper import PyGameWrapper
+from WaterWorld.game.implementations.ple.ple.games.base.pygamewrapper import PyGameWrapper
 
 class Ball(pygame.sprite.Sprite):
 

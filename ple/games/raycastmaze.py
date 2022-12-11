@@ -1,10 +1,10 @@
 
 #import .base
-from .base.pygamewrapper import PyGameWrapper
+from  WaterWorld.game.implementations.ple.ple.games.base.pygamewrapper import PyGameWrapper
 import pygame
 import numpy as np
 import math
-from .raycast import RayCastPlayer
+from WaterWorld.game.implementations.ple.ple.games.raycast import RayCastPlayer
 from pygame.constants import K_w, K_a, K_d, K_s
 
 
@@ -240,10 +240,10 @@ class RaycastMaze(PyGameWrapper, RayCastPlayer):
 
             for i in range(len(c)):
                 color = (col[i][0], col[i][1], col[i][2])
-                p0 = (c[i], t[i])
-                p1 = (c[i], b[i])
+                p0 = (c[i], t[i][0])
+                p1 = (c[i], b[i][0])
 
-                pygame.draw.line(self.screen, color, p0, p1, self.resolution)
+                pygame.draw.line(self.screen, color, p0, p1, 1)
 
             dist = np.sqrt(np.sum((self.pos[0] - (self.obj_loc[0] + 0.5))**2.0))
             # Close to target object and in sight

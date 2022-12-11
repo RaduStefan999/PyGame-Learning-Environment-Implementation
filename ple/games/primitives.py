@@ -47,6 +47,8 @@ class Creep(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = pos_init
 
+        self.mask = pygame.mask.from_surface(self.image)
+
     def update(self, dt):
 
         dx = self.direction.x * self.speed * dt
@@ -77,6 +79,8 @@ class Creep(pygame.sprite.Sprite):
         self.direction.normalize()
 
         self.rect.center = ((self.pos.x, self.pos.y))
+
+        self.mask = pygame.mask.from_surface(self.image)
 
 
 class Wall(pygame.sprite.Sprite):

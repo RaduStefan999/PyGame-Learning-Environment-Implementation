@@ -197,6 +197,8 @@ class WaterWorld(PyGameWrapper):
         self.ticks = 0
         self.lives = -1
 
+        self.external_init(self.AGENT_INIT_POS)
+
     def step(self, dt):
         """
             Perform one step of game emulation.
@@ -218,10 +220,19 @@ class WaterWorld(PyGameWrapper):
         if self.creep_counts["GOOD"] == 0:
             self.score += self.rewards["win"]
 
+        self.external_step(dt)
+
         self.creeps.update(dt)
 
         self.player.draw(self.screen)
         self.creeps.draw(self.screen)
+
+    def external_step(self, dt) -> None:
+        pass
+
+    def external_init(self, init_position: tuple) -> None:
+        pass
+
 
 if __name__ == "__main__":
     import numpy as np

@@ -2,7 +2,7 @@ import sys
 import pygame
 from .utils import percent_round_int
 
-from ple.games import base
+from WaterWorld.game.implementations.ple.ple.games import base
 from pygame.constants import K_a, K_d
 
 
