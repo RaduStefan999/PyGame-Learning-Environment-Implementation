@@ -32,7 +32,8 @@ class WaterWorld(PyGameWrapper):
     def __init__(self,
                  width=48,
                  height=48,
-                 num_creeps=3):
+                 num_creeps=3,
+                 ai_player: bool = False):
 
         actions = {
             "up": K_w,
@@ -67,7 +68,19 @@ class WaterWorld(PyGameWrapper):
         self.player = None
         self.creeps = None
 
+        self.ai_player = ai_player
+        self.last_ai_player_action = "NOP"
+
+    def set_ai_action(self, action: str) -> None:
+        self.last_ai_player_action = action
+
     def _handle_player_events(self):
+        if not self.ai_player:
+            self.__handle_keyboard_player_events()
+        else:
+            self.__handle_ai_player_events()
+
+    def __handle_keyboard_player_events(self) -> None:
         self.dx = 0
         self.dy = 0
         for event in pygame.event.get():
@@ -80,15 +93,27 @@ class WaterWorld(PyGameWrapper):
 
                 if key == self.actions["left"]:
                     self.dx -= self.AGENT_SPEED
-
-                if key == self.actions["right"]:
+                elif key == self.actions["right"]:
                     self.dx += self.AGENT_SPEED
-
-                if key == self.actions["up"]:
+                elif key == self.actions["up"]:
                     self.dy -= self.AGENT_SPEED
-
-                if key == self.actions["down"]:
+                elif key == self.actions["down"]:
                     self.dy += self.AGENT_SPEED
+
+    def __handle_ai_player_events(self) -> None:
+        self.dx = 0
+        self.dy = 0
+
+        if self.last_ai_player_action == "left":
+            self.dx -= self.AGENT_SPEED
+        elif self.last_ai_player_action == "right":
+            self.dx += self.AGENT_SPEED
+        elif self.last_ai_player_action == "up":
+            self.dy -= self.AGENT_SPEED
+        elif self.last_ai_player_action == "down":
+            self.dy += self.AGENT_SPEED
+
+        self.last_ai_player_action = "NOP"
 
     def _add_creep(self):
         creep_type = self.rng.choice([0, 1])
